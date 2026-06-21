@@ -1,0 +1,84 @@
+---
+/**
+ * Hero.astro — the top of the homepage. Now leads with your NAME and PORTRAIT,
+ * then the positioning headline, short bio, and actions.
+ *
+ * YOUR PHOTO: this shows src/assets/portrait.jpg. To use your real photo, just
+ * replace that file (keep the same name) — no code changes needed. Recommended
+ * size: a portrait around 800×1000px (4:5).
+ */
+import { Image } from "astro:assets";
+import { site } from "@/config/site.config";
+import Container from "./Container.astro";
+import Button from "./Button.astro";
+import portrait from "@/assets/portrait.jpg";
+
+interface Props {
+  headline?: string;
+  intro?: string;
+}
+const { headline = site.headline, intro = site.shortBio } = Astro.props;
+---
+
+<section class="pt-16 pb-16 sm:pt-24 sm:pb-20">
+  <Container width="wide">
+    <div class="grid items-center gap-10 md:grid-cols-[1.4fr_1fr] md:gap-14">
+      <!-- Text column -->
+      <div>
+        <p
+          data-animate
+          class="mb-4 text-sm uppercase tracking-[0.18em] text-faint"
+        >
+          {site.location}
+        </p>
+        <h1
+          data-animate
+          style="animation-delay: 60ms"
+          class="font-display text-5xl font-semibold sm:text-6xl md:text-7xl"
+        >
+          {site.name}
+        </h1>
+        <p
+          data-animate
+          style="animation-delay: 130ms"
+          class="mt-5 max-w-xl font-display text-2xl font-medium leading-snug text-muted sm:text-3xl"
+        >
+          {headline}
+        </p>
+        <p
+          data-animate
+          style="animation-delay: 200ms"
+          class="mt-6 max-w-xl text-lg text-muted"
+        >
+          {intro}
+        </p>
+        <div
+          data-animate
+          style="animation-delay: 270ms"
+          class="mt-8 flex flex-wrap items-center gap-3"
+        >
+          <Button href={site.primaryCta.href} variant="primary" external>
+            {site.primaryCta.label}
+          </Button>
+          <Button href={site.secondaryCta.href} variant="ghost" external>
+            {site.secondaryCta.label}
+          </Button>
+        </div>
+      </div>
+
+      <!-- Portrait column -->
+      <div
+        data-animate
+        style="animation-delay: 160ms"
+        class="mx-auto w-full max-w-[18rem] md:max-w-none"
+      >
+        <Image
+          src={portrait}
+          alt={`Portrait of ${site.name}`}
+          class="aspect-[4/5] w-full rounded-2xl border border-line object-cover"
+          loading="eager"
+        />
+      </div>
+    </div>
+  </Container>
+</section>

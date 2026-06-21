@@ -1,0 +1,51 @@
+---
+/**
+ * SocialLinks.astro — renders only the links you set in site.config.ts.
+ * Empty values are skipped automatically. Used in the footer and Contact page.
+ */
+import { site } from "@/config/site.config";
+
+interface Props {
+  /** "row" for inline (footer), "stack" for a vertical list (Contact). */
+  layout?: "row" | "stack";
+}
+const { layout = "row" } = Astro.props;
+
+const items = [
+  { key: "linkedin", label: "LinkedIn", href: site.links.linkedin },
+  { key: "scholar", label: "Google Scholar", href: site.links.scholar },
+  { key: "github", label: "GitHub", href: site.links.github },
+  {
+    key: "email",
+    label: "Email",
+    href: site.links.email ? `mailto:${site.links.email}` : "",
+  },
+].filter((i) => i.href);
+---
+
+<ul
+  class:list={[
+    layout === "row" ? "flex flex-wrap items-center gap-x-6 gap-y-2" : "flex flex-col gap-3",
+  ]}
+>
+  {
+    items.map((item) => (
+      <li>
+        <a
+          href={item.href}
+          class="inline-flex items-center gap-1.5 text-muted underline-offset-4 transition-colors hover:text-accent hover:underline"
+          {...item.key !== "email"
+            ? { target: "_blank", rel: "noopener noreferrer" }
+            : {}}
+        >
+          {item.label}
+          {item.key !== "email" && (
+            <svg class="h-3.5 w-3.5 opacity-60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true">
+              <path d="M7 17 17 7M9 7h8v8" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          )}
+        </a>
+      </li>
+    ))
+  }
+</ul>

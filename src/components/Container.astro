@@ -1,0 +1,22 @@
+---
+/**
+ * Container.astro — centers content and sets the page side margins.
+ * Wrap page sections in this for consistent horizontal rhythm.
+ */
+interface Props {
+  /** "default" ~ 72rem, "narrow" ~ 48rem for reading, "wide" ~ 80rem. */
+  width?: "default" | "narrow" | "wide";
+  class?: string;
+}
+const { width = "default", class: className = "" } = Astro.props;
+
+const widths = {
+  narrow: "max-w-2xl",
+  default: "max-w-4xl",
+  wide: "max-w-6xl",
+};
+---
+
+<div class={`mx-auto w-full ${widths[width]} px-6 sm:px-8 ${className}`}>
+  <slot />
+</div>

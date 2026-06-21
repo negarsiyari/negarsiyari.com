@@ -1,0 +1,17 @@
+---
+/**
+ * ProjectGrid.astro — responsive grid of ProjectCards.
+ * Pass the `projects` array; it stacks to one column on small screens.
+ */
+import type { CollectionEntry } from "astro:content";
+import ProjectCard from "./ProjectCard.astro";
+
+interface Props {
+  projects: CollectionEntry<"projects">[];
+}
+const { projects } = Astro.props;
+---
+
+<div class="grid gap-5 sm:grid-cols-2">
+  {projects.map((project) => <ProjectCard project={project} />)}
+</div>

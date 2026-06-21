@@ -1,0 +1,40 @@
+---
+/**
+ * Footer.astro — quiet footer with nav, links, and copyright.
+ */
+import { site } from "@/config/site.config";
+import Container from "./Container.astro";
+import SocialLinks from "./SocialLinks.astro";
+
+const year = new Date().getFullYear();
+---
+
+<footer class="mt-24 border-t border-line py-12 text-sm">
+  <Container width="wide">
+    <div class="flex flex-col gap-8 sm:flex-row sm:items-start sm:justify-between">
+      <div class="max-w-xs">
+        <p class="font-display text-base font-semibold">{site.name}</p>
+        <p class="mt-2 text-muted">{site.location}</p>
+      </div>
+
+      <nav aria-label="Footer" class="flex flex-col gap-2">
+        {
+          site.nav
+            .filter((i) => i.href !== "/")
+            .map((i) => (
+              <a href={i.href} class="text-muted transition-colors hover:text-ink">
+                {i.label}
+              </a>
+            ))
+        }
+      </nav>
+
+      <div>
+        <p class="mb-3 text-faint uppercase tracking-wider text-xs">Elsewhere</p>
+        <SocialLinks layout="stack" />
+      </div>
+    </div>
+
+    <p class="mt-10 text-faint">© {year} {site.name}</p>
+  </Container>
+</footer>

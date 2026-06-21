@@ -1,0 +1,47 @@
+---
+/**
+ * PROJECT DETAIL PAGE (template)
+ * -----------------------------------------------------------------------------
+ * Renders one project's .mdx body. You don't edit this file to add projects —
+ * you add .mdx files in src/content/projects/. This template wraps them.
+ */
+import { getCollection, render } from "astro:content";
+import type { GetStaticPaths } from "astro";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Container from "@/components/Container.astro";
+import CaseStudyHeader from "@/components/CaseStudyHeader.astro";
+import CaseStudySection from "@/components/CaseStudySection.astro";
+import Quote from "@/components/Quote.astro";
+
+export const getStaticPaths = (async () => {
+  const projects = await getCollection("projects");
+  return projects.map((project) => ({
+    params: { slug: project.id },
+    props: { project },
+  }));
+}) satisfies GetStaticPaths;
+
+const { project } = Astro.props;
+const { Content } = await render(project);
+const d = project.data;
+
+// Components made available inside the .mdx body.
+const components = { CaseStudySection, Quote };
+---
+
+<BaseLayout title={d.title} description={d.summary} article>
+  <CaseStudyHeader
+    title={d.title}
+    summary={d.summary}
+    year={d.year}
+    role={d.role}
+    status={d.status}
+    tags={d.tags}
+  />
+
+  <Container width="narrow">
+    <div class="pb-12">
+      <Content components={components} />
+    </div>
+  </Container>
+</BaseLayout>

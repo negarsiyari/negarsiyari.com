@@ -1,0 +1,60 @@
+---
+/**
+ * SEO.astro — all the <head> metadata for a page.
+ * You don't edit this per-page; you pass `title` and `description` props from
+ * each page. Defaults come from src/config/site.config.ts.
+ */
+import { site } from "@/config/site.config";
+
+interface Props {
+  title?: string;
+  description?: string;
+  /** Path-relative or absolute image for social sharing. */
+  image?: string;
+  /** Set true on essays/projects so cards say "article". */
+  article?: boolean;
+}
+
+const {
+  title,
+  description = site.seo.description,
+  image = site.seo.ogImage,
+  article = false,
+} = Astro.props;
+
+// Build the <title>: "Page · Negar Siyari", or just the default on home.
+const fullTitle = title
+  ? site.seo.titleTemplate.replace("%s", title)
+  : site.seo.titleDefault;
+
+const canonical = new URL(Astro.url.pathname, site.url).href;
+const ogImageUrl = new URL(image, site.url).href;
+---
+
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="generator" content={Astro.generator} />
+
+<title>{fullTitle}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonical} />
+
+<!-- Open Graph -->
+<meta property="og:type" content={article ? "article" : "website"} />
+<meta property="og:title" content={fullTitle} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonical} />
+<meta property="og:image" content={ogImageUrl} />
+<meta property="og:locale" content={site.seo.locale} />
+<meta property="og:site_name" content={site.name} />
+
+<!-- Twitter / X -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={fullTitle} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={ogImageUrl} />
+{site.seo.twitter && <meta name="twitter:creator" content={site.seo.twitter} />}
+
+<!-- Icons (drop your own files in /public to override) -->
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+<link rel="sitemap" href="/sitemap-index.xml" />

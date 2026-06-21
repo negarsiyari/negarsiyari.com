@@ -1,0 +1,32 @@
+{
+  "name": "negar-siyari-site",
+  "type": "module",
+  "version": "1.0.0",
+  "private": true,
+  "packageManager": "pnpm@11.5.3",
+  "engines": {
+    "node": ">=22 <25",
+    "pnpm": ">=11 <12"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro",
+    "smoke": "node scripts/smoke.mjs",
+    "verify": "pnpm smoke && pnpm build"
+  },
+  "dependencies": {
+    "@astrojs/mdx": "4.3.14",
+    "@astrojs/rss": "4.0.18",
+    "@astrojs/sitemap": "3.7.3",
+    "@tailwindcss/vite": "4.3.1",
+    "astro": "5.18.2",
+    "sharp": "0.34.5",
+    "tailwindcss": "4.3.1"
+  },
+  "devDependencies": {
+    "vite": "6.4.3"
+  }
+}

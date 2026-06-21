@@ -1,0 +1,22 @@
+# Dependencies
+node_modules/
+.git.broken*/
+
+# Build output
+dist/
+.astro/
+
+# Environment
+.env
+.env.production
+
+# macOS
+.DS_Store
+
+# Logs
+npm-debug.log*
+*.log
+
+# Editor
+.vscode/
+.idea/

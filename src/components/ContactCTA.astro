@@ -1,0 +1,37 @@
+---
+/**
+ * ContactCTA.astro — a closing call-to-action band. Drop at the bottom of a
+ * page to invite the visitor to connect. Pulls text/links from site config.
+ */
+import { site } from "@/config/site.config";
+import Container from "./Container.astro";
+import Button from "./Button.astro";
+
+interface Props {
+  heading?: string;
+  text?: string;
+}
+const {
+  heading = "Let's connect.",
+  text = "I'm always glad to talk about language, AI literacy, and teaching. The best way to reach me is LinkedIn.",
+} = Astro.props;
+---
+
+<section class="py-16">
+  <Container width="wide">
+    <div
+      class="rounded-2xl border border-line bg-surface-2/50 px-7 py-12 sm:px-12 sm:py-16"
+    >
+      <h2 class="font-display text-3xl font-semibold sm:text-4xl">{heading}</h2>
+      <p class="mt-4 max-w-xl text-lg text-muted">{text}</p>
+      <div class="mt-8 flex flex-wrap items-center gap-3">
+        <Button href={site.primaryCta.href} variant="primary" external>
+          {site.primaryCta.label}
+        </Button>
+        <Button href={site.secondaryCta.href} variant="ghost" external>
+          {site.secondaryCta.label}
+        </Button>
+      </div>
+    </div>
+  </Container>
+</section>

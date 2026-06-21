@@ -1,0 +1,51 @@
+---
+/**
+ * HOME PAGE
+ * -----------------------------------------------------------------------------
+ * Composed from blocks — edit content here, not in the components.
+ * Structure: Hero (name + portrait + headline + bio) → "What I do" → contact CTA.
+ * (Projects and Writing live in the nav, by design.)
+ */
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Hero from "@/components/Hero.astro";
+import Section from "@/components/Section.astro";
+import TextBlock from "@/components/TextBlock.astro";
+import ContactCTA from "@/components/ContactCTA.astro";
+---
+
+<BaseLayout>
+  <Hero />
+
+  <Section
+    eyebrow="In short"
+    title="What I do"
+    lead="My work connects applied linguistics, refugee and newcomer education, curriculum design, and equitable access to generative AI."
+    width="wide"
+  >
+    <div class="grid gap-8 md:grid-cols-3">
+      <TextBlock>
+        <h3>Language learning</h3>
+        <p>
+          I design instruction around real tasks, adult learners' goals, and the
+          social conditions that shape access to language education.
+        </p>
+      </TextBlock>
+      <TextBlock>
+        <h3>AI literacy</h3>
+        <p>
+          I study and teach AI use as a practical language skill: prompting,
+          evaluating output, revising, and knowing when to seek human support.
+        </p>
+      </TextBlock>
+      <TextBlock>
+        <h3>Newcomer education</h3>
+        <p>
+          I focus on refugee and newcomer learners — especially adults
+          navigating work, education, and community life in a new language.
+        </p>
+      </TextBlock>
+    </div>
+  </Section>
+
+  <ContactCTA />
+</BaseLayout>

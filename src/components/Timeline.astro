@@ -1,0 +1,35 @@
+---
+/**
+ * Timeline.astro — a vertical list of dated milestones (education, roles).
+ * Pass an array of items. Great for the About page.
+ *
+ *   <Timeline items={[
+ *     { date: "2024", title: "PhD, Linguistics", detail: "Georgetown University" },
+ *   ]} />
+ */
+interface Item {
+  date: string;
+  title: string;
+  detail?: string;
+}
+interface Props {
+  items: Item[];
+}
+const { items } = Astro.props;
+---
+
+<ol class="relative border-l border-line">
+  {
+    items.map((item) => (
+      <li class="ml-6 pb-9 last:pb-0">
+        <span
+          class="absolute -left-[5px] mt-2 h-2.5 w-2.5 rounded-full bg-accent"
+          aria-hidden="true"
+        />
+        <p class="text-xs uppercase tracking-wider text-faint">{item.date}</p>
+        <h3 class="mt-1 font-display text-lg font-semibold">{item.title}</h3>
+        {item.detail && <p class="mt-0.5 text-muted">{item.detail}</p>}
+      </li>
+    ))
+  }
+</ol>

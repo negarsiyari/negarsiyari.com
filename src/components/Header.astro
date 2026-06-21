@@ -1,0 +1,101 @@
+---
+/**
+ * Header.astro — site navigation. Reads links from site.config.ts (`nav`).
+ * Responsive: inline links on desktop, a disclosure menu on mobile.
+ */
+import { site } from "@/config/site.config";
+import Container from "./Container.astro";
+import ThemeToggle from "./ThemeToggle.astro";
+
+const path = Astro.url.pathname;
+// Mark the active link (handles nested routes like /projects/foo).
+const isActive = (href: string) =>
+  href === "/" ? path === "/" : path.startsWith(href);
+---
+
+<header class="sticky top-0 z-40 border-b border-line/70 bg-surface/85 backdrop-blur-sm">
+  <Container width="wide">
+    <nav class="flex h-16 items-center justify-between" aria-label="Primary">
+      <a
+        href="/"
+        class="font-display text-lg font-semibold tracking-tight hover:text-accent"
+      >
+        {site.name}
+      </a>
+
+      <!-- Desktop links -->
+      <div class="hidden items-center gap-7 md:flex">
+        {
+          site.nav
+            .filter((item) => item.href !== "/")
+            .map((item) => (
+              <a
+                href={item.href}
+                class:list={[
+                  "text-sm transition-colors hover:text-ink",
+                  isActive(item.href) ? "text-ink" : "text-muted",
+                ]}
+                aria-current={isActive(item.href) ? "page" : undefined}
+              >
+                {item.label}
+              </a>
+            ))
+        }
+        <ThemeToggle />
+      </div>
+
+      <!-- Mobile controls -->
+      <div class="flex items-center gap-2 md:hidden">
+        <ThemeToggle />
+        <button
+          id="menu-button"
+          type="button"
+          class="inline-flex h-9 w-9 items-center justify-center rounded-full border border-line text-muted hover:text-ink"
+          aria-label="Open menu"
+          aria-expanded="false"
+          aria-controls="mobile-menu"
+        >
+          <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+            <path d="M4 7h16M4 12h16M4 17h16" stroke-linecap="round"></path>
+          </svg>
+        </button>
+      </div>
+    </nav>
+  </Container>
+
+  <!-- Mobile menu panel -->
+  <div id="mobile-menu" class="hidden border-t border-line md:hidden">
+    <Container width="wide">
+      <ul class="flex flex-col py-2">
+        {
+          site.nav
+            .filter((item) => item.href !== "/")
+            .map((item) => (
+              <li>
+                <a
+                  href={item.href}
+                  class:list={[
+                    "block py-3 text-base transition-colors hover:text-ink",
+                    isActive(item.href) ? "text-ink" : "text-muted",
+                  ]}
+                  aria-current={isActive(item.href) ? "page" : undefined}
+                >
+                  {item.label}
+                </a>
+              </li>
+            ))
+        }
+      </ul>
+    </Container>
+  </div>
+</header>
+
+<script>
+  const btn = document.getElementById("menu-button");
+  const menu = document.getElementById("mobile-menu");
+  btn?.addEventListener("click", () => {
+    const open = menu?.classList.toggle("hidden") === false;
+    btn.setAttribute("aria-expanded", String(open));
+    btn.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+  });
+</script>

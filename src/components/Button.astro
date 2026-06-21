@@ -1,0 +1,35 @@
+---
+/**
+ * Button.astro — a link styled as a button. Two looks: primary / ghost.
+ */
+interface Props {
+  href: string;
+  variant?: "primary" | "ghost";
+  external?: boolean;
+  class?: string;
+}
+const { href, variant = "primary", external = false, class: className = "" } =
+  Astro.props;
+
+const base =
+  "inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium transition-colors";
+const looks = {
+  primary: "bg-ink text-surface hover:bg-accent",
+  ghost: "border border-line text-ink hover:border-accent hover:text-accent",
+};
+---
+
+<a
+  href={href}
+  class={`${base} ${looks[variant]} ${className}`}
+  {...external ? { target: "_blank", rel: "noopener noreferrer" } : {}}
+>
+  <slot />
+  {
+    external && (
+      <svg class="h-3.5 w-3.5 opacity-70" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+        <path d="M7 17 17 7M9 7h8v8" stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
+    )
+  }
+</a>

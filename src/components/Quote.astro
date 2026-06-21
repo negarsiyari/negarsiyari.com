@@ -1,0 +1,19 @@
+---
+/**
+ * Quote.astro — a pull quote. Put the quote text in the slot.
+ *   <Quote cite="From my dissertation">Big idea here.</Quote>
+ */
+interface Props {
+  cite?: string;
+}
+const { cite } = Astro.props;
+---
+
+<figure class="my-12">
+  <blockquote
+    class="border-l-2 border-accent pl-6 font-display text-2xl font-medium leading-snug sm:text-3xl"
+  >
+    <slot />
+  </blockquote>
+  {cite && <figcaption class="mt-4 pl-6 text-sm text-faint">— {cite}</figcaption>}
+</figure>

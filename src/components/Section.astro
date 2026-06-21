@@ -1,0 +1,36 @@
+---
+/**
+ * Section.astro — a titled block of content. Your main composition unit.
+ *
+ *   <Section title="What I do">
+ *     ...your content...
+ *   </Section>
+ *
+ * Optional `eyebrow` (small label above the title) and `lead` (intro line).
+ */
+import Container from "./Container.astro";
+
+interface Props {
+  title?: string;
+  eyebrow?: string;
+  lead?: string;
+  width?: "default" | "narrow" | "wide";
+  class?: string;
+}
+const { title, eyebrow, lead, width = "default", class: className = "" } =
+  Astro.props;
+---
+
+<section class={`py-12 sm:py-16 ${className}`}>
+  <Container width={width}>
+    {eyebrow && (
+      <p class="mb-3 text-xs uppercase tracking-[0.18em] text-faint">{eyebrow}</p>
+    )}
+    {title && (
+      <h2 class="font-display text-2xl font-semibold sm:text-3xl">{title}</h2>
+    )}
+    {lead && <p class="mt-4 max-w-2xl text-lg text-muted">{lead}</p>}
+    {(title || lead) && <div class="mt-8"></div>}
+    <slot />
+  </Container>
+</section>

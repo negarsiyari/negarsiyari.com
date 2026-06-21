@@ -1,0 +1,44 @@
+---
+/**
+ * BaseLayout.astro — the shell every page uses: <head>, header, footer.
+ * Pass `title` and `description` per page; everything else is automatic.
+ */
+import "@/styles/global.css";
+import { site } from "@/config/site.config";
+import SEO from "@/components/SEO.astro";
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  article?: boolean;
+}
+const { title, description, image, article } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <SEO title={title} description={description} image={image} article={article} />
+    {/* Apply saved/system theme BEFORE paint to avoid a flash. */}
+    <script is:inline>
+      (() => {
+        const saved = localStorage.getItem("theme");
+        const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+        if (saved === "dark" || (!saved && prefersDark)) {
+          document.documentElement.classList.add("dark");
+        }
+      })();
+    </script>
+  </head>
+  <body class="flex min-h-screen flex-col">
+    <a href="#main" class="skip-link">Skip to content</a>
+    <Header />
+    <main id="main" class="flex-1">
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>

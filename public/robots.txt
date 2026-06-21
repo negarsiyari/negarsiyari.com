@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+
+# Sitemap (generated automatically by @astrojs/sitemap on build).
+# The full URL uses your domain from src/config/site.config.ts.
+Sitemap: https://negarsiyari.com/sitemap-index.xml
