@@ -1,0 +1,63 @@
+---
+title: "Building My Personal Website with Claude Code"
+description: "How I built this site from scratch with no coding background, working alongside Claude Code one step at a time."
+date: 2026-06-24T12:00:00
+tags: ["AI", "Claude Code", "web", "learning"]
+draft: false
+---
+
+## Where I started
+
+After so many years of going without a website, I finally decided I wanted a personal website to present my work in applied linguistics, refugee education, AI literacy, teaching, and research. I had previously experimented maintaining websites on website creation platforms like Wix or Wordpress. Obviously, it was more of a hassle than it was worth: I would try to edit one thing and a thousand other features would be triggered and changed unintentionally. Maybe that is why I never really set out to have a website of my own: I had a bad experience working on Wix and Wordpress, I didn't want to pay a subscription to buy a website platform, and I didn't know how to code to build my own website.
+
+As I was doing Anthropic's [AI Fluency](https://anthropic.skilljar.com/ai-fluency-framework-foundations) course, I saw this exercise where we were invited to plan and create a practical multi-step project. One option was to "design a simple website structure with content for key pages". I quickly checked with Claude in a simple prompt if this is really doable for someone with zero computer science/coding experience. And it turned out it is very doable with Claude Code!
+
+**Claude Code** is an AI coding assistant that works in the terminal and can actually read, write, and edit the files in my website project, run commands, and explain what it's doing as it goes. I described what I wanted in plain English, and we built it together, one step at a time. In this essay, I'd like to explain how it went in simple terms, so hopefully someone like me with little background in coding, can also use Claude Code and build projects that have been long due!
+
+## Choosing the foundation
+
+The first thing we did was settle on the tools the site would be built on. I told Claude Code what kind of site I wanted, and it picked a sensible, modern setup and explained each piece to me:
+
+- **Astro** (a website framework: a starter kit that turns my content and design into finished pages, and is especially good for fast, content-focused sites like mine).
+- **TypeScript** (a stricter version of JavaScript, the language that runs websites; it catches certain mistakes before they ever reach the live site).
+- **Tailwind CSS** (a styling system that keeps the look consistent across every page).
+
+What struck me here was how little I needed to memorize. My job was to make decisions; Claude Code's job was to translate them into working code and tell me why.
+
+## Keeping my content separate from the design
+
+This turned out to be my favorite decision. The site keeps **what I write** apart from **the code that displays it**, and it's built from reusable pieces (a header, a footer, project cards, and so on) so the look stays consistent everywhere. In practice that means:
+
+- My name, bio, links, and menu all live in one settings file. To update my bio, I edit that one file and never touch the design.
+- My projects and essays are each just a single file written in **MDX** (a friendly writing format like Markdown — the simple "type a # for a heading" style — that can also hold richer content when I need it).
+
+The payoff is that I'm not afraid of working with my own website. Adding a new essay later means writing one new file, not relearning how everything fits together and/or editing a code manually.
+
+## The finishing touches
+
+Once the structure was in place, we layered on the details that make a site feel done:
+
+- A **dark/light theme toggle**, so visitors can switch the color scheme.
+- **SEO** settings (Search Engine Optimization — the behind-the-scenes information that tells Google and social platforms how to title and preview my pages when they're shared).
+- A **sitemap** (an automatically generated map of all my pages that helps search engines find everything), which keeps itself up to date.
+- **Faster-loading images** — Claude Code compressed and resized my photos so they look sharp without slowing the page down.
+
+SEO and sitemaps are things Claude Code commonly adds by default for a personal/professional site, precisely because most people don't know to ask for them. I'd certainly never heard the terms, and I didn't request either one. This was the moment the whole thing clicked for me: a good assistant (Claude Code!) doesn't just do what you say, it fills in the expertise you don't have!
+
+## Checking the work before going live
+
+The website includes a quick automated check that confirms the basics are healthy before publishing it live, followed by a **build** (the process that turns all my source files into the final, ready-to-publish website). If something's wrong, I find out first on my own laptop instead of in front of website visitors.
+
+## Putting it on the internet
+
+For hosting we used **Cloudflare Workers** (a service that serves my site from data centers around the world, so it loads quickly wherever a visitor is). The best part is that it's automatic: whenever I update the main version of my project, the live site at negarsiyari.com rebuilds and republishes itself.
+
+## Fixing a real bug after launch
+
+Soon after launch I noticed the theme toggle didn't work on my phone. I reported it in plain language, and Claude Code found the cause and fixed it — leaving a clear record of what changed and why. That back-and-forth is the everyday rhythm now: I notice something, describe it, and we fix it together.
+
+## What I took away from this
+
+The biggest surprise was how much I could build without being a professional web developer or coder. I made the decisions and described what I wanted; Claude Code wrote the code and explained its reasoning, so I actually understand my own site. The result isn't a black box I'm nervous to touch. It's something I can describe, maintain, and grow on my own! Finally I have a personalized website that I love!
+
+I have to say that I even leaned on Claude Code as I put this essay together: I had it walk back through the project with me and confirm the essential steps of how the site was built, so that I wouldn't miss any important step in the process. :)
