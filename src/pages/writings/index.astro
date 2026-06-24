@@ -1,0 +1,38 @@
+---
+/**
+ * WRITINGS INDEX
+ * -----------------------------------------------------------------------------
+ * Lists published essays from src/content/writing/.
+ * (Scholarly publications now live on their own page at /publications.)
+ */
+import { getCollection } from "astro:content";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Container from "@/components/Container.astro";
+import WritingList from "@/components/WritingList.astro";
+
+const posts = (await getCollection("writing"))
+  .filter((post) => !post.data.draft)
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+---
+
+<BaseLayout
+  title="Writings"
+  description="Essays and notes by Negar Siyari."
+>
+  <Container width="wide">
+    <div class="pt-16 pb-10 sm:pt-20">
+      <p class="text-xs uppercase tracking-[0.18em] text-faint">Writings</p>
+      <h1 class="mt-3 font-display text-4xl font-semibold sm:text-5xl">
+        Essays and notes
+      </h1>
+      <p class="mt-5 max-w-2xl text-lg text-muted">
+        Essays and shorter notes on language education, refugee learning,
+        AI literacy, and applied linguistics.
+      </p>
+    </div>
+
+    <section class="pb-14">
+      <WritingList posts={posts} />
+    </section>
+  </Container>
+</BaseLayout>

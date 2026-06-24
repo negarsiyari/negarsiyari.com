@@ -9,6 +9,11 @@ import { site } from "./src/config/site.config.ts";
 // https://astro.build/config
 export default defineConfig({
   site: site.url,
+  // Old essays lived under /writing; keep those links working.
+  redirects: {
+    "/writing": "/writings",
+    "/writing/[...slug]": "/writings/[...slug]",
+  },
   integrations: [mdx(), sitemap()],
   vite: {
     plugins: [tailwindcss()],
